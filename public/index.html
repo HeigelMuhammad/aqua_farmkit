@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Aquafarm Kit Monitoring</title>
+    <link rel="stylesheet" href="style2.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+  </head>
+  <body>
+    <aside class="sidebar" id="sidebarMenu">
+      <div class="sidebar__profile">
+        <div class="sidebar__avatar"></div>
+        <p class="sidebar__username">Zaka</p>
+      </div>
+
+      <nav class="sidebar__navigation">
+        <a href="#" class="sidebar__link sidebar__link--active">
+          <i class="fas fa-chart-bar sidebar__icon"></i>
+          Dashboard
+        </a>
+        <a href="#" class="sidebar__link">
+          <i class="fas fa-cog sidebar__icon"></i>
+          Setting
+        </a>
+        <a href="#" class="sidebar__link">
+          <i class="fas fa-user sidebar__icon"></i>
+          Profile
+        </a>
+      </nav>
+
+      <button class="sidebar__logout-button">Logout</button>
+    </aside>
+
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <div class="container" id="mainContainer">
+      <header class="header">
+        <button class="header__menu-button" id="menuToggle">
+          <i class="fas fa-bars"></i>
+        </button>
+        <h1 class="header__title">Aquafarm Kit</h1>
+      </header>
+
+      <main class="dashboard">
+        <div class="sensor-cards">
+          <div class="card sensor-card temperature-card">
+            <div class="card-icon-container">
+              <i class="fas fa-temperature-three-quarters card-icon"></i>
+            </div>
+            <h2 class="sensor-title">Temperature</h2>
+            <p class="sensor-value">-</p>
+            <p class="sensor-unit">°C</p>
+            <div class="sensor-details">
+              <p class="sensor-status">Status</p>
+              <p class="sensor-status-value">-</p>
+              <p class="sensor-realtime">Real-time</p>
+            </div>
+          </div>
+
+          <div class="card sensor-card ph-card">
+            <div class="card-icon-container">
+              <i class="fas fa-vial card-icon"></i>
+            </div>
+            <h2 class="sensor-title">Ph</h2>
+            <p class="sensor-value">-</p>
+            <div class="sensor-details">
+              <p class="sensor-status">Status</p>
+              <p class="sensor-status-value">-</p>
+              <p class="sensor-realtime">Real-time</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="chart-cards">
+          <div class="card chart-card temperature-chart">
+            <div class="chart-header">
+              <p>Average temperature</p>
+              <p class="chart-percentage danger-color">20% ⚠️</p>
+            </div>
+            <div class="chart-area">
+              <div class="chart-bar-group">
+                <div class="chart-bar-bg"></div>
+                <div
+                  class="chart-bar"
+                  style="height: 60%; background-color: #f7a738"
+                ></div>
+                <span class="bar-value">26.0°C</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="card chart-card ph-chart">
+            <div class="chart-header">
+              <p>Average water ph</p>
+              <p class="chart-percentage safe-color">0%</p>
+            </div>
+            <div class="chart-area">
+              <div class="chart-bar-group">
+                <div class="chart-bar-bg"></div>
+                <div
+                  class="chart-bar"
+                  style="height: 80%; background-color: #8c6fe9"
+                ></div>
+                <span class="bar-value">6.8</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card schedule-card">
+          <div class="schedule-header">
+            <div class="schedule-title-group">
+              <i class="fas fa-calendar-alt schedule-icon"></i>
+              <h2 class="schedule-title">Pengaturan Jadwal</h2>
+            </div>
+            <div class="toggle-switch-mode">
+              <span class="toggle-label mode-label">Mode Jadwal</span>
+              <input
+                type="checkbox"
+                id="scheduleModeToggle"
+                class="toggle-input"
+                checked
+              />
+              <label for="scheduleModeToggle" class="toggle-slider"></label>
+            </div>
+          </div>
+
+          <div class="schedule-status">
+            <p class="status-label">Jadwal Aktif</p>
+            <p class="status-value">Tidak Ada Jadwal Yang Diatur.</p>
+          </div>
+
+          <div class="add-schedule-section">
+            <p class="add-schedule-title">Tambah Jadwal Baru</p>
+            <div class="time-inputs">
+              <div class="time-input-group">
+                <label for="startTime">Waktu Mulai</label>
+                <input type="time" id="startTime" class="time-input" />
+              </div>
+              <div class="time-input-group">
+                <label for="endTime">Waktu Selesai</label>
+                <input type="time" id="endTime" class="time-input" />
+              </div>
+            </div>
+            <button class="add-button">+Tambah</button>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>

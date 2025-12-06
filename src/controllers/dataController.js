@@ -38,6 +38,56 @@ const DataController = {
             console.error('Error fetching data:', error);
             res.status(500).json({ message: 'Internal Server Error' });
         }
+    },
+
+    // Mengirim data terbaru saja (lebih efisien untuk real-time monitoring)
+    async getLatestData(req, res) {
+        try {
+            const data = await DataModel.getLatestData();
+
+            if (!data) {
+                return res.status(404).json({
+                    message: 'Data tidak ditemukan',
+                    data: null
+                });
+            }
+
+            res.status(200).json({
+                message: 'Berhasil mengambil data terbaru',
+                data: data
+            });
+        } catch (error) {
+            console.error('Error fetching latest data:', error);
+            res.status(500).json({ message: 'Internal Server Error' });
+        }
+    },
+
+    // Mengirim data berdasarkan ID
+    async getDataById(req, res) {
+        try {
+            const { id } = req.params;
+            
+            if (!id || isNaN(id)) {
+                return res.status(400).json({ message: 'ID tidak valid' });
+            }
+
+            const data = await DataModel.getDataById(id);
+
+            if (!data) {
+                return res.status(404).json({
+                    message: 'Data tidak ditemukan',
+                    data: null
+                });
+            }
+
+            res.status(200).json({
+                message: 'Berhasil mengambil data',
+                data: data
+            });
+        } catch (error) {
+            console.error('Error fetching data by ID:', error);
+            res.status(500).json({ message: 'Internal Server Error' });
+        }
     }
 };
 
