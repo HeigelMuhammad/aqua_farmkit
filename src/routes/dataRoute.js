@@ -18,4 +18,12 @@ router.get('/latest', DataController.getLatestData);
 // Endpoint: /api/feeder/data/:id
 router.get('/data/:id', DataController.getDataById);
 
+// Ambil Jadwal (GET)
+router.get('/schedule', DataController.getSchedule);
+
+// Simpan Jadwal (POST)
+router.post('/schedule', DataController.saveSchedule);
+
+module.exports = router;
+
 module.exports = router;

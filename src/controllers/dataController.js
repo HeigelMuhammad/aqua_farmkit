@@ -88,6 +88,35 @@ const DataController = {
             console.error('Error fetching data by ID:', error);
             res.status(500).json({ message: 'Internal Server Error' });
         }
+    },
+
+    // ... kode lama ...
+
+    // ESP32 & Frontend: Ambil Jadwal
+    async getSchedule(req, res) {
+        try {
+            const schedules = await DataModel.getSchedules();
+            // Format output: { "schedules": ["07:00", "12:00", ...] }
+            const formatted = schedules.map(row => row.time_format);
+            res.status(200).json({ schedules: formatted });
+        } catch (error) {
+            res.status(500).json({ message: 'Error fetching schedule' });
+        }
+    },
+
+    // Frontend: Simpan Jadwal Baru
+    async saveSchedule(req, res) {
+        try {
+            const { schedules } = req.body; // Harapannya array ["07:00", "12:00"]
+            if (!schedules || !Array.isArray(schedules)) {
+                return res.status(400).json({ message: 'Format jadwal salah' });
+            }
+            
+            await DataModel.updateSchedules(schedules);
+            res.status(200).json({ message: 'Jadwal berhasil diperbarui' });
+        } catch (error) {
+            res.status(500).json({ message: 'Error saving schedule' });
+        }
     }
 };
 

@@ -29,6 +29,36 @@ const DataModel = {
         const query = 'SELECT * FROM feeder_logs WHERE id = ?';
         const [rows] = await db.execute(query, [id]);
         return rows[0] || null;
+    },
+    
+    // Ambil semua jadwal
+    async getSchedules() {
+        const [rows] = await db.execute('SELECT time_format FROM feeding_schedules ORDER BY time_format ASC');
+        return rows;
+    },
+
+    // Update jadwal (Hapus lama, masukkan baru)
+    async updateSchedules(timesArray) {
+        const connection = await db.getConnection();
+        try {
+            await connection.beginTransaction();
+            // 1. Hapus semua jadwal lama
+            await connection.execute('DELETE FROM feeding_schedules');
+            
+            // 2. Masukkan jadwal baru
+            // timesArray contohnya: ["07:00", "12:00", "17:00", "22:00"]
+            for (const time of timesArray) {
+                await connection.execute('INSERT INTO feeding_schedules (time_format) VALUES (?)', [time]);
+            }
+            
+            await connection.commit();
+            return true;
+        } catch (error) {
+            await connection.rollback();
+            throw error;
+        } finally {
+            connection.release();
+        }
     }
 };
 
